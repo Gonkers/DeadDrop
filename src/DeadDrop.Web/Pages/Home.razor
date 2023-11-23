@@ -1,0 +1,37 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div>Key ID: <pre>@keyId</pre></div>
+<div>Key: <pre>@encryptionKey</pre></div>
+<div>
+<textarea @bind-value="plainText" @bind-value:event="onchange" @oninput="GenerateKeyData"></textarea>
+</div>
+
+
+
+<div><pre>@cipherText</pre></div>
+
+@code {
+    string
+        encryptionKey,
+        keyId,
+        plainText,
+        cipherText;
+
+    private async Task GenerateKeyData(ChangeEventArgs e)
+    {
+        if (e.Value is string text)
+        {
+            (byte[] data, byte[] key) = await DeadDrop.Services.AesEncryption.Encrypt(text);
+            encryptionKey = Convert.ToBase64String(key);
+            keyId = Guid.NewGuid().ToString();
+            cipherText = Convert.ToBase64String(data);
+        }
+
+    }
+}

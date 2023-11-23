@@ -1,0 +1,11 @@
+@DeadDrop.Api_HostAddress = http://localhost:5220
+
+GET {{DeadDrop.Api_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{DeadDrop.Api_HostAddress}}/todos/1
+Accept: application/json
+
+###
